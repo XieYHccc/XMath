@@ -75,10 +75,20 @@ public:
 
 // type alias
 template<typename Real>
+using Matrix2 = Matrix<Real, 2, 2>;
+using mat2 = Matrix2<float>;
+using mat2d = Matrix2<double>;
+using mat2i = Matrix2<int>;
+template<typename Real>
 using Matrix3 = Matrix<Real, 3, 3>;
 using mat3 = Matrix3<float>;
 using mat3d = Matrix3<double>;
 using mat3i = Matrix3<int>;
+template<typename Real>
+using Matrix4 = Matrix<Real, 4, 4>;
+using mat4 = Matrix4<float>;
+using mat4d = Matrix4<double>;
+using mat4i = Matrix4<int>;
 
 // ==================================Unary operations====================================
 template<typename Real, size_t NumRows, size_t NumCols>
