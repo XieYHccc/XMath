@@ -1,10 +1,7 @@
 #pragma once
 
 #include <algorithm>
-#include <cassert>
 #include <cmath>
-#include <cstddef>
-#include <initializer_list>
 
 #include "../Utils/Array2D.h"
 #include "Vector.h"
