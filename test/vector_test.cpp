@@ -43,9 +43,9 @@ int main()
 	cout << "dot(w, z): " << dot(w, z) << endl;
 	
 	cout << "---------test norm and normalize-----" << endl;
-	cout << "norm(v):" << norm(v) << endl;
-    cout << "sqrnorm(u):" << sqrnorm(u) << endl;
-	cout << "normalize(v)" << normalize(v) << endl;
+	cout << "norm(v): " << norm(v) << endl;
+    cout << "sqrnorm(u): " << sqrnorm(u) << endl;
+	cout << "normalize(v): " << normalize(v) << endl;
 	v = vec3(1, 2, 3);
 
 	// // angle

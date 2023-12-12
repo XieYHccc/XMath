@@ -12,10 +12,10 @@ namespace xyh
 {
 //! Real based vector in inner product space
 template <typename Real, size_t N> 
-class Vector : public Array<Real, N>
+class Vector : public Array1D<Real, N>
 {
 public :
-    using Array<Real, N>::Array;
+    using Array1D<Real, N>::Array1D;
 };
 
 // type alias
@@ -30,7 +30,7 @@ using vec3 = Vector3<float>;
 using vec3i = Vector3<int>;
 using vec3d = Vector3<double>;
 
-// ----------------------linear operations for vectors------------------------
+// ==================================linear operations====================================
 template <typename Real, size_t N>
 inline Vector<Real, N> operator+(const Vector<Real, N>& v)
 {
@@ -40,7 +40,7 @@ inline Vector<Real, N> operator+(const Vector<Real, N>& v)
 template <typename Real, size_t N>
 inline Vector<Real, N> operator-(const Vector<Real, N>& v)
 {
-	Vector<Real, N> result{};
+	Vector<Real, N> result;
 	for(size_t i = 0; i < N; ++i)
 	{
 		result[i] = -v[i];
@@ -100,6 +100,15 @@ inline Vector<Real, N> operator*(Vector<Real, N>& v0, const Real& real)
 }
 
 template <typename Real, size_t N>
+inline Vector<Real, N> operator*(const Real& real, Vector<Real, N>& v0)
+{
+	Vector<Real, N> result = v0;
+	for (size_t i = 0; i < N; ++i)
+		result[i] *= real;
+	return result;
+}
+
+template <typename Real, size_t N>
 inline Vector<Real, N>& operator/=(Vector<Real, N>& v0, const Real& real)
 {
 	assert(real != Real(0));
@@ -117,7 +126,9 @@ inline Vector<Real, N> operator/(Vector<Real, N>& v0, const Real& real)
 		result[i] /= real;
 	return result;
 }
+// ===============================linear operations finish=================================
 
+// Compute the square of length of a vector
 template<typename Real, size_t N>
 inline Real sqrnorm(const Vector<Real, N>& v)
 {
@@ -126,13 +137,14 @@ inline Real sqrnorm(const Vector<Real, N>& v)
 		s += v[i] * v[i];
 	return s;
 }
-
+// Compute the length of a vector
 template<typename Real, size_t N>
 inline Real norm(const Vector<Real, N>& v)
 {
-	return sqrt(sqrnorm(v));
+	return std::sqrt(sqrnorm(v));
 }
 
+// Normalize a vector to unit length
 template<typename Real, size_t N>
 inline Vector<Real, N>& normalize(Vector<Real, N>& v)
 {
@@ -144,6 +156,7 @@ inline Vector<Real, N>& normalize(Vector<Real, N>& v)
 	return v;
 }
 
+// Compute the inner product of two vectors
 template<typename Real, size_t N>
 inline Real dot(const Vector<Real, N>& v0, const Vector<Real, N>& v1)
 {
@@ -153,7 +166,7 @@ inline Real dot(const Vector<Real, N>& v0, const Vector<Real, N>& v1)
 	return result;
 }
 
-// -------------------------Additional support for Vector2----------------------------
+// ==============================Additional support for Vector2==============================
 //! compute perpendicular vector (rotate vector counter-clockwise by 90 degrees)
 template<typename Real>
 inline Vector2<Real> perp(const Vector2<Real>& v)
@@ -161,7 +174,7 @@ inline Vector2<Real> perp(const Vector2<Real>& v)
     return Vector2<Real>(-v[1], v[0]);
 }
 
-// -------------------------Additional support for Vector3----------------------------
+// ==============================Additional support for Vector3==============================
 template<typename Real>
 inline Real dot(const Vector3<Real>& v0, const Vector3<Real>& v1)
 {
