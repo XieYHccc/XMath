@@ -30,5 +30,12 @@ int main()
     cout << "p0 += v0: " << (p0 += v0) << endl;
     p0 = point3(1, 2, 3);
     cout << "p0 - p1: " << p0 - p1 << endl;
+    cout << "p0 * 2.f: " << p0 * 2.f << endl;
+    cout << "2.f * p0: " << 2.f * p0 << endl;
+    cout << "p0 *= 2.f: " << (p0 *= 2.f) << endl;
+    p0 = point3(1, 2, 3);
+    cout << "p0 / 2.f: " << p0 / 2.f << endl;
+    cout << "p0 /= 2.f: " << (p0 /= 2.f) << endl;
+
 
 }

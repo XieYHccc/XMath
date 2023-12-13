@@ -77,4 +77,49 @@ inline Point<Real, N>& operator+=(Point<Real, N>& p, const Vector<Real, N>&v)
         p[i] += v[i];
     return p;
 }
+
+template<typename Real, size_t N>
+inline Point<Real, N> operator*(const Point<Real, N>& p, const Real& real)
+{
+    Point<Real, N> result = p;
+    for(size_t i = 0; i < N; ++i)
+        result[i] *= real;
+    return result;
+}
+
+template<typename Real, size_t N>
+inline Point<Real, N> operator*(const Real& real, const Point<Real, N>& p)
+{
+    Point<Real, N> result = p;
+    for(size_t i = 0; i < N; ++i)
+        result[i] *= real;
+    return result;
+}
+
+template<typename Real, size_t N>
+inline Point<Real, N>& operator*=(Point<Real, N>& p, const Real& real)
+{
+    for(size_t i = 0; i < N; ++i)
+        p[i] *= real;
+    return p;
+}
+
+template<typename Real, size_t N>
+inline Point<Real, N> operator/(const Point<Real, N>& p, const Real& real)
+{
+    assert(real != 0);
+    Point<Real, N> result = p;
+    for(size_t i = 0; i < N; ++i)
+        result[i] /= real;
+    return result;
+}
+
+template<typename Real, size_t N>
+inline Point<Real, N>& operator/=(Point<Real, N>& p, const Real& real)
+{
+    assert(real != 0);
+    for(size_t i = 0; i < N; ++i)
+        p[i] /= real;
+    return p;
+}
 }

@@ -188,30 +188,6 @@ Matrix<Real, NumRows, NumCols>& operator/=(Matrix<Real, NumRows, NumCols>& m, co
         m[i] /= r;
     return m;
 }
-// ===============================linear operations finish=================================
-
-// Compute the L2 Norm of a Matrix
-template<typename Real, size_t NumRows, size_t NumCols>
-Real norm_l2(const Matrix<Real, NumRows, NumCols>& m)
-{
-    Real result = 0;
-    for(size_t i = 0; i < NumRows * NumCols; ++i)
-        result += m[i] * m[i];
-    return std::sqrt(result);
-}
-
-// Get the transose of a Matrix
-template<typename Real, size_t NumRows, size_t NumCols>
-Matrix<Real, NumRows, NumCols> transpose(const Matrix<Real, NumRows, NumCols>& m )
-{
-    Matrix<Real, NumRows, NumCols> result;
-    for (size_t row = 0; row < NumRows; ++row)
-    {
-        for (size_t col = 0; col < NumCols; ++col)
-            result(col, row) = m(row, col);
-    }
-    return result;
-}
 
 // =======================Matrix-Vector and Matrix-Matrix multiplication=========================
 
@@ -245,7 +221,37 @@ const Matrix<Real, NumCommon, NumCols>& m1)
     }
     return result;
 }
+// =================================other operations===================================
 
+// Compute the L2 Norm of a Matrix
+template<typename Real, size_t NumRows, size_t NumCols>
+Real norm_l2(const Matrix<Real, NumRows, NumCols>& m)
+{
+    Real result = 0;
+    for(size_t i = 0; i < NumRows * NumCols; ++i)
+        result += m[i] * m[i];
+    return std::sqrt(result);
+}
+
+// Get the transose of a Matrix
+template<typename Real, size_t NumRows, size_t NumCols>
+Matrix<Real, NumRows, NumCols> transpose(const Matrix<Real, NumRows, NumCols>& m )
+{
+    Matrix<Real, NumRows, NumCols> result;
+    for (size_t row = 0; row < NumRows; ++row)
+    {
+        for (size_t col = 0; col < NumCols; ++col)
+            result(col, row) = m(row, col);
+    }
+    return result;
+}
+
+// change a matrix to identity matrix
+template<typename Real, size_t NumRows, size_t NumCols>
+Matrix<Real, NumRows, NumCols> make_identity(const Matrix<Real, NumRows, NumCols>& m)
+{
+
+}
 // ============================Additional support for Matrix3===============================
 
 }
