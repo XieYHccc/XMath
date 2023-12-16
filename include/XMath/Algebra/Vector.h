@@ -90,7 +90,7 @@ inline Vector<Real, N>& operator*=(Vector<Real, N>& v0, const Real& real)
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N> operator*(Vector<Real, N>& v0, const Real& real)
+inline Vector<Real, N> operator*(const Vector<Real, N>& v0, const Real& real)
 {
 	Vector<Real, N> result = v0;
 	for (size_t i = 0; i < N; ++i)
@@ -99,7 +99,7 @@ inline Vector<Real, N> operator*(Vector<Real, N>& v0, const Real& real)
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N> operator*(const Real& real, Vector<Real, N>& v0)
+inline Vector<Real, N> operator*(const Real& real, const Vector<Real, N>& v0)
 {
 	Vector<Real, N> result = v0;
 	for (size_t i = 0; i < N; ++i)
