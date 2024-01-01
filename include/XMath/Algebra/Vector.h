@@ -132,7 +132,7 @@ template<typename Real, size_t N>
 inline Real sqrnorm(const Vector<Real, N>& v)
 {
 	Real s{0.0};
-	for(size_t i = 0; i < v.size(); ++i)
+	for (size_t i = 0; i < v.size(); ++i)
 		s += v[i] * v[i];
 	return s;
 }
@@ -160,13 +160,13 @@ template<typename Real, size_t N>
 inline Real dot(const Vector<Real, N>& v0, const Vector<Real, N>& v1)
 {
 	Real result = v0[0] * v1[0];
-	for(size_t i = 1; i < N; ++i)
+	for (size_t i = 1; i < N; ++i)
 		result += v0[i] * v1[i];
 	return result;
 }
 
 // ==============================Additional support for Vector2==============================
-//! compute perpendicular vector (rotate vector counter-clockwise by 90 degrees)
+// compute perpendicular vector (rotate vector counter-clockwise by 90 degrees)
 template<typename Real>
 inline Vector2<Real> perp(const Vector2<Real>& v)
 {
@@ -178,6 +178,16 @@ template<typename Real>
 inline Real dot(const Vector3<Real>& v0, const Vector3<Real>& v1)
 {
 	return v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2];
+}
+
+// compute the cross product of two vectors (only valid for 3D vectors)
+template <typename Real>
+inline Vector<Real, 3> cross(const Vector<Real, 3>& v0,
+                             const Vector<Real, 3>& v1)
+{
+    return Vector<Real, 3>(v0[1] * v1[2] - v0[2] * v1[1],
+                           v0[2] * v1[0] - v0[0] * v1[2],
+                           v0[0] * v1[1] - v0[1] * v1[0]);
 }
 
 

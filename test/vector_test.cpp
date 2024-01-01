@@ -38,9 +38,10 @@ int main()
     cout << "u /= 5.f: " << (u /= 5.f) << endl;
 	u *= 5.f;
 
-	cout << "---------test inner product-----" << endl;
+	cout << "---------test inner/outter product-----" << endl;
 	cout << "dot(v, u): " << dot(v, u) << endl;
 	cout << "dot(w, z): " << dot(w, z) << endl;
+	cout << "cross(v, u): " << cross(v, u) << endl;
 	
 	cout << "---------test norm and normalize-----" << endl;
 	cout << "norm(v): " << norm(v) << endl;
