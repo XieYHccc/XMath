@@ -11,8 +11,7 @@ namespace xyh
 {
 //! Real based vector in inner product space
 template <typename Real, size_t N> 
-class Vector : public Array1D<Real, N>
-{
+class Vector : public Array1D<Real, N> {
 public :
     using Array1D<Real, N>::Array1D;
 };
@@ -31,33 +30,28 @@ using vec3d = Vector3<double>;
 
 // ==================================linear operations====================================
 template <typename Real, size_t N>
-inline Vector<Real, N> operator+(const Vector<Real, N>& v)
-{
+inline Vector<Real, N> operator+(const Vector<Real, N>& v) {
 	return v;
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N> operator-(const Vector<Real, N>& v)
-{
+inline Vector<Real, N> operator-(const Vector<Real, N>& v) {
 	Vector<Real, N> result;
-	for(size_t i = 0; i < N; ++i)
-	{
+	for (size_t i = 0; i < N; ++i){
 		result[i] = -v[i];
 	}
 	return result;
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N>& operator+=(Vector<Real, N>& v0, const Vector<Real, N>& v1)
-{
+inline Vector<Real, N>& operator+=(Vector<Real, N>& v0, const Vector<Real, N>& v1) {
 	for (size_t i = 0; i < N; ++i)
 		v0[i] += v1[i];
 	return v0;
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N> operator+(const Vector<Real, N>& v0, const Vector<Real, N>& v1)
-{
+inline Vector<Real, N> operator+(const Vector<Real, N>& v0, const Vector<Real, N>& v1) {
 	Vector<Real, N> result = v0;
 	for (size_t i = 0; i < N; ++i)
 		result[i] += v1[i];
@@ -65,16 +59,14 @@ inline Vector<Real, N> operator+(const Vector<Real, N>& v0, const Vector<Real, N
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N>& operator-=(Vector<Real, N>& v0, const Vector<Real, N>& v1)
-{
+inline Vector<Real, N>& operator-=(Vector<Real, N>& v0, const Vector<Real, N>& v1) {
 	for (size_t i = 0; i < N; ++i)
 		v0[i] -= v1[i];
 	return v0;
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N> operator-(const Vector<Real, N>& v0, const Vector<Real, N>& v1)
-{
+inline Vector<Real, N> operator-(const Vector<Real, N>& v0, const Vector<Real, N>& v1) {
 	Vector<Real, N> result = v0;
 	for (size_t i = 0; i < N; ++i)
 		result[i] -= v1[i];
@@ -82,16 +74,14 @@ inline Vector<Real, N> operator-(const Vector<Real, N>& v0, const Vector<Real, N
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N>& operator*=(Vector<Real, N>& v0, const Real& real)
-{
+inline Vector<Real, N>& operator*=(Vector<Real, N>& v0, const Real& real) {
 	for (size_t i = 0; i < N; ++i)
 		v0[i] *= real;
 	return v0;
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N> operator*(const Vector<Real, N>& v0, const Real& real)
-{
+inline Vector<Real, N> operator*(const Vector<Real, N>& v0, const Real& real) {
 	Vector<Real, N> result = v0;
 	for (size_t i = 0; i < N; ++i)
 		result[i] *= real;
@@ -99,8 +89,7 @@ inline Vector<Real, N> operator*(const Vector<Real, N>& v0, const Real& real)
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N> operator*(const Real& real, const Vector<Real, N>& v0)
-{
+inline Vector<Real, N> operator*(const Real& real, const Vector<Real, N>& v0) {
 	Vector<Real, N> result = v0;
 	for (size_t i = 0; i < N; ++i)
 		result[i] *= real;
@@ -108,8 +97,7 @@ inline Vector<Real, N> operator*(const Real& real, const Vector<Real, N>& v0)
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N>& operator/=(Vector<Real, N>& v0, const Real& real)
-{
+inline Vector<Real, N>& operator/=(Vector<Real, N>& v0, const Real& real) {
 	assert(real != Real(0));
 	for (size_t i = 0; i < N; ++i)
 		v0[i] /= real;
@@ -117,8 +105,7 @@ inline Vector<Real, N>& operator/=(Vector<Real, N>& v0, const Real& real)
 }
 
 template <typename Real, size_t N>
-inline Vector<Real, N> operator/(Vector<Real, N>& v0, const Real& real)
-{
+inline Vector<Real, N> operator/(Vector<Real, N>& v0, const Real& real) {
 	assert(real != Real(0));
 	Vector<Real, N> result = v0;
 	for (size_t i = 0; i < N; ++i)
@@ -129,8 +116,7 @@ inline Vector<Real, N> operator/(Vector<Real, N>& v0, const Real& real)
 
 // Compute the square of length of a vector
 template<typename Real, size_t N>
-inline Real sqrnorm(const Vector<Real, N>& v)
-{
+inline Real sqrnorm(const Vector<Real, N>& v) {
 	Real s{0.0};
 	for (size_t i = 0; i < v.size(); ++i)
 		s += v[i] * v[i];
@@ -138,15 +124,13 @@ inline Real sqrnorm(const Vector<Real, N>& v)
 }
 // Compute the length of a vector
 template<typename Real, size_t N>
-inline Real norm(const Vector<Real, N>& v)
-{
+inline Real norm(const Vector<Real, N>& v) {
 	return std::sqrt(sqrnorm(v));
 }
 
 // Normalize a vector to unit length
 template<typename Real, size_t N>
-inline Vector<Real, N>& normalize(Vector<Real, N>& v)
-{
+inline Vector<Real, N>& normalize(Vector<Real, N>& v) {
 	Real n = norm(v);
 	if(n > (Real)0)
 		v /= n;
@@ -157,8 +141,7 @@ inline Vector<Real, N>& normalize(Vector<Real, N>& v)
 
 // Compute the inner product of two vectors
 template<typename Real, size_t N>
-inline Real dot(const Vector<Real, N>& v0, const Vector<Real, N>& v1)
-{
+inline Real dot(const Vector<Real, N>& v0, const Vector<Real, N>& v1) {
 	Real result = v0[0] * v1[0];
 	for (size_t i = 1; i < N; ++i)
 		result += v0[i] * v1[i];
@@ -168,27 +151,22 @@ inline Real dot(const Vector<Real, N>& v0, const Vector<Real, N>& v1)
 // ==============================Additional support for Vector2==============================
 // compute perpendicular vector (rotate vector counter-clockwise by 90 degrees)
 template<typename Real>
-inline Vector2<Real> perp(const Vector2<Real>& v)
-{
+inline Vector2<Real> perp(const Vector2<Real>& v) {
     return Vector2<Real>(-v[1], v[0]);
 }
 
 // ==============================Additional support for Vector3==============================
 template<typename Real>
-inline Real dot(const Vector3<Real>& v0, const Vector3<Real>& v1)
-{
+inline Real dot(const Vector3<Real>& v0, const Vector3<Real>& v1) {
 	return v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2];
 }
 
 // compute the cross product of two vectors (only valid for 3D vectors)
 template <typename Real>
-inline Vector<Real, 3> cross(const Vector<Real, 3>& v0,
-                             const Vector<Real, 3>& v1)
-{
+inline Vector<Real, 3> cross(const Vector<Real, 3>& v0, const Vector<Real, 3>& v1) {
     return Vector<Real, 3>(v0[1] * v1[2] - v0[2] * v1[1],
                            v0[2] * v1[0] - v0[0] * v1[2],
                            v0[0] * v1[1] - v0[1] * v1[0]);
 }
-
 
 }
