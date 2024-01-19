@@ -41,7 +41,7 @@ private:
     Rectangle itr_rec_;
     Real Epsilon_;
     std::array<size_t, 4> support;
-    std::vector<const Point*> ch_;
+    std::vector<Point> ch_;
     size_t ch_size_;
     std::vector<bool> visited_;
 };

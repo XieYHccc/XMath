@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../QuickHull2D.h"
 namespace xyh {
     
 template<typename Real>
@@ -8,18 +9,21 @@ void MinimumAreaRectangle<Real>::run(size_t size, const Point* points, Real Eps)
     // -----------------------------1.Compute the convex hull-------------------------------
     QuickHull2D<float> qhull;
     qhull.runqhull(size, points, true);
-    ch_ = qhull.get_hull_points();
+    ch_.reserve(ch_size_);
+    for (auto ptr : qhull.get_hull_points())
+        ch_.push_back(*ptr);
     ch_size_ = ch_.size();
     visited_.resize(ch_.size(), false);
     visited_[0] = true;
+
     init_rec();
     update_rec();
 }
 
 template<typename Real>
 void MinimumAreaRectangle<Real>::init_rec() {
-    const Point& front = *ch_.front();
-    const Point& end = *ch_.back();
+    Point front = ch_.front();
+    Point end = ch_.back();
     support[0] = 0;
     Vector init_dir = front - end;
     normalize(init_dir);
@@ -34,7 +38,7 @@ void MinimumAreaRectangle<Real>::init_rec() {
     extreme[0][0] = dot(init_dir, front.to_vector());
     extreme[0][1] = dot(init_perp, front.to_vector());
     for (size_t i = 0; i < ch_size_; ++i) {
-        const Point& p = *ch_[i];
+        const Point& p = ch_[i];
         Real projonbottom = dot(init_dir, p.to_vector());
         Real projonperp = dot(init_perp, p.to_vector());
         // New right maximum or same but closer to top
@@ -64,7 +68,7 @@ void MinimumAreaRectangle<Real>::init_rec() {
     }
     itr_rec_.scale = Vector(extreme[1][0] - extreme[3][0], extreme[2][1] - extreme[0][1]);
     itr_rec_.area = itr_rec_.scale[0] * itr_rec_.scale[1];
-    itr_rec_.extreme[0] = *ch_[support[0]] + (extreme[1][0] - extreme[0][0]) * init_dir ;
+    itr_rec_.extreme[0] = ch_[support[0]] + (extreme[1][0] - extreme[0][0]) * init_dir ;
     itr_rec_.extreme[1] = itr_rec_.extreme[0] + itr_rec_.rotation.get_col(1) * itr_rec_.scale[1];
     itr_rec_.extreme[2] = itr_rec_.extreme[1] + itr_rec_.rotation.get_col(0) * (-itr_rec_.scale[0]);
     itr_rec_.extreme[3] = itr_rec_.extreme[0] + itr_rec_.rotation.get_col(0) * (-itr_rec_.scale[0]);
@@ -73,18 +77,17 @@ void MinimumAreaRectangle<Real>::init_rec() {
 template<typename Real>
 void MinimumAreaRectangle<Real>::update_rec() {
     // ------------------------------4.Update the rectangle----------------------------------
-    int num;
     for(size_t i = 0; i < ch_size_ - 1; ++i) {
         // Caculate the candidate angles, which are between 0 - 90
-        num = 0;
+        int num = 0;
         std::array<Real, 4> sqr_sintheta;
         for (size_t j = 0; j < 4; ++j) {
             // there are duplicate vertices
             if (support[j] == support[(j+1) % 4])
                 sqr_sintheta[j] = 2;
             else {
-                const Point& p = *ch_[support[j]];
-                const Point& p_right = *ch_[(support[j] + 1) % ch_.size()];
+                const Point& p = ch_[support[j]];
+                const Point& p_right = ch_[(support[j] + 1) % ch_size_];
                 Vector dir = itr_rec_.rotation.get_col(j % 2);
                 Vector v = p_right - p;
                 Real d= dot(v, dir);
@@ -125,19 +128,19 @@ void MinimumAreaRectangle<Real>::update_rec() {
             visited_[support[0]] = true;
         
         // Update box and result
-        Vector dir = *ch_[support[0]] - *ch_[(support[0] - 1)];
+        Vector dir = ch_[support[0]] - ch_[(support[0] - 1)];
         normalize(dir);
         Vector perpdir = perp(dir);
-        Real length1 = dot((*ch_[support[1]] - *ch_[support[3]]), dir);
-        Real length2 = dot((*ch_[support[2]] - *ch_[support[0]]), perpdir);
+        Real length1 = dot((ch_[support[1]] - ch_[support[3]]), dir);
+        Real length2 = dot((ch_[support[2]] - ch_[support[0]]), perpdir);
         Real area = length1 * length2;
 
         itr_rec_.area = area;
         itr_rec_.scale = Vector(length1, length2);
         itr_rec_.rotation.set_col(0, dir);
         itr_rec_.rotation.set_col(1, perpdir);
-        itr_rec_.extreme[0] = *ch_[support[0]] + dir *
-                            dot((*ch_[support[1]] - *ch_[support[0]]), dir);
+        itr_rec_.extreme[0] = ch_[support[0]] + dir *
+                            dot((ch_[support[1]] - ch_[support[0]]), dir);
         itr_rec_.extreme[1] = itr_rec_.extreme[0] + perpdir * length2;
         itr_rec_.extreme[2] = itr_rec_.extreme[1] + dir * (-length1);
         itr_rec_.extreme[3] = itr_rec_.extreme[0] + dir * (-length1);
