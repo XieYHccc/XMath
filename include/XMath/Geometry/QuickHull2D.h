@@ -1,10 +1,10 @@
 #pragma once
 
 #include <array>
-#include <iostream>
 #include <vector>
 #include <limits>
 #include <numeric>
+#include <algorithm>
 
 #include "../Algebra/Point.h"
 #include "../Algebra/Vector.h"
