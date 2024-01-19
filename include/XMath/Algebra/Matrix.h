@@ -177,22 +177,22 @@ template<typename Real, size_t NumRows, size_t NumCols>
 Vector<Real, NumRows> operator*(const Matrix<Real, NumRows, NumCols>& m,
 const Vector<Real, NumCols>& v) {
     Vector<Real, NumRows> result{};
-    for (size_t row = 0; row < NumRows; ++row) {
-        for(size_t i = 0; i < NumCols; ++i)
-            result[row] += m(row, i) * v[i];
+    for(size_t k = 0; k < NumCols; ++k) {
+        for (size_t row = 0; row < NumRows; ++row) {
+            result[row] += m(row, k) * v[k];
+        }
     }
     return result;
 }
-
 // M0 * M1
 template<typename Real, size_t NumRows, size_t NumCols, size_t NumCommon>
 Matrix<Real, NumRows, NumCols> operator*(const Matrix<Real, NumRows, NumCommon>& m0,
 const Matrix<Real, NumCommon, NumCols>& m1) {
     Matrix<Real, NumRows, NumCols> result{};
-    for (size_t row = 0; row < NumRows; ++row) {
-        for (size_t col = 0; col < NumCols; ++col) {
-            for (size_t i = 0; i < NumCommon; ++i)
-                result(row, col) += m0(row, i) * m1(i, col);
+    for (size_t col = 0; col < NumCols; ++col) {
+        for (size_t k = 0; k < NumCommon; ++k) {
+            for (size_t row = 0; row < NumRows; ++row)
+                result(row, col) += m0(row, k) * m1(k, col);
         }
     }
     return result;
@@ -207,20 +207,17 @@ Real norm_l2(const Matrix<Real, NumRows, NumCols>& m) {
         result += m[i] * m[i];
     return std::sqrt(result);
 }
-
 // Get the transose of a Matrix
 template<typename Real, size_t NumRows, size_t NumCols>
 Matrix<Real, NumRows, NumCols> transpose(const Matrix<Real, NumRows, NumCols>& m ) {
     Matrix<Real, NumRows, NumCols> result;
-    for (size_t row = 0; row < NumRows; ++row)
-    {
+    for (size_t row = 0; row < NumRows; ++row) {
         for (size_t col = 0; col < NumCols; ++col)
             result(col, row) = m(row, col);
     }
     return result;
 }
-
-// change a matrix to identity matrix
+// Change a matrix to identity matrix
 template<typename Real, size_t NumRows, size_t NumCols>
 Matrix<Real, NumRows, NumCols> make_identity(const Matrix<Real, NumRows, NumCols>& m)
 {}

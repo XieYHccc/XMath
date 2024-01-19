@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 
 #include "XMath/Algebra/Matrix.h"
 #include "XMath/Algebra/Vector.h"
@@ -6,8 +7,8 @@
 using namespace std;
 using namespace xyh;
 
-int main()
-{
+int main() {
+    auto start = std::chrono::high_resolution_clock::now();
     cout <<"==============================" << endl;
     cout <<"         test begins          " << endl;
     cout <<"==============================" << endl;
@@ -56,6 +57,9 @@ int main()
     cout <<"==============================" << endl;
     cout << "transpose(m1):" << endl << transpose(m1);
 
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    std::cout << "time: " << duration.count() << std::endl;
 
 }
 
