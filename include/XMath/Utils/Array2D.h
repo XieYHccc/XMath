@@ -1,11 +1,11 @@
 // Base Container to support 2D array-like object
 #pragma once
 
-#include <ostream>
 #include <cassert>
 #include <cstddef>
 
 #include <array>
+#include <iostream>
 
 namespace xyh 
 {
@@ -27,47 +27,31 @@ public:
     explicit Array2D(const std::initializer_list<std::initializer_list<T>>& columns) {
         assert(columns.size() == NumCols);
         size_t offset = 0;
-        for (const auto& col : columns )
-        {
+        for (const auto& col : columns ) {
             assert(col.size() == NumRows);
             std::copy(col.begin(), col.end(), elements_.begin() + offset);
             offset += NumCols;
         }
     }
 
-    // container access 
-	T& operator[](size_t i) {
-		assert(i < NumRows * NumCols);
-		return elements_[i];
-	}
+    void fill(T s) { elements_.fill(s); }
+
+    // container access
 	const T& operator[](size_t i) const {
 		assert(i < NumRows * NumCols);
 		return elements_[i];
 	}
-    T& at(size_t row, size_t col){ 
-        assert(row < NumRows && col < NumCols);
-        return elements_[get_index(row, col)]; 
+    const T& operator()(size_t row, size_t col) const {
+        assert(row < NumRows&& col < NumCols);
+        return elements_[get_index(row, col)];
     }
-    const T& at(size_t row, size_t col) const { 
-        assert(row < NumRows && col < NumCols);
-        return elements_[get_index(row, col)]; 
-    }
+    T& operator[](size_t i) { return const_cast<T&>(static_cast<const Array2D<T, NumRows, NumCols>&>(*this)[i]); }
+    T& operator()(size_t row, size_t col) { return const_cast<T&>(static_cast<const Array2D<T, NumRows, NumCols>&>(*this)(row, col)); }
+    const T& at(size_t row, size_t col) const { return elements_.at(get_index(row, col)); }
+    T& at(size_t row, size_t col) { return elements_.at(get_index(row, col)); }
 
-    const T& operator()(size_t row, size_t col) const { 
-        assert(row < NumRows && col < NumCols);
-        return elements_[get_index(row, col)]; 
-    }
-
-    T& operator()(size_t row, size_t col) { 
-        assert(row < NumRows && col < NumCols);
-        return elements_[get_index(row, col)]; 
-    }
-    
-    // set all elements to a specified value.
-	void fill(T s) { elements_.fill(s); }
-
-    T* data() noexcept { return elements_.data();}
     const T* data() const noexcept { return elements_.data(); }
+    T* data() noexcept { return elements_.data();}
 
 protected:
     // return the index in 1D array by row index and col index
@@ -83,7 +67,7 @@ inline std::ostream& operator<<(std::ostream& os, const Array2D<T, NumRows, NumC
         for (size_t j = 0; j < NumCols; ++j) {
             os << array(i, j) << " ";
         }
-        os << std::endl;
+        os << "\n";
     }
     return os;
 }

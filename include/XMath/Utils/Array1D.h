@@ -1,11 +1,11 @@
 // Base Container to support 1D array-like object
 
-
 #pragma once
 
 #include <cassert>
 
 #include <array>
+#include <iostream>
 
 namespace xyh {
 // A wrapper of std::array to support some operators
@@ -39,22 +39,13 @@ public :
     }
 
 	// Container access
-	T& operator[](size_t i) {
-		assert(i < N);
-		return elements_[i];
-	}
 	const T& operator[](size_t i) const {
 		assert(i < N);
 		return elements_[i];
 	}
-    T& at(size_t i) {
-        assert(i < N);
-        return elements_[i];
-    }
-    const T& at(size_t i) const {
-        assert(i < N);
-        return elements_[i];
-    }
+    T& operator[](size_t i) { return const_cast<T&>(static_cast<const Array1D<T, N>&>(*this)[i]); }
+    const T& at(size_t i) const { return elements_.at(i); }
+    T& at(size_t i) { return elements_.at(i); }
 
 	// Set all elements to a specified value.
 	void fill(T s) { elements_.fill(s); }
@@ -76,6 +67,7 @@ template <typename Real, size_t N>
 inline std::ostream& operator<<(std::ostream& os, const Array1D<Real, N>& array) {
     for (size_t i = 0; i < N; ++i)
         os << array[i] << " ";
+    os << std::endl;
     return os;
 }
 

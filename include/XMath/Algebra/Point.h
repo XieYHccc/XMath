@@ -23,10 +23,14 @@ public:
 template<typename Real>
 using Point2 = Point<Real, 2>;
 using point2 = Point2<float>;
+using point2i = Point2<int>;
+using point2d = Point2<double>;
 
 template<typename Real>
 using Point3 = Point<Real, 3>;
 using point3 = Point3<float>;
+using point3i = Point3<int>;
+using point3d = Point3<double>;
 
 // ==================================unary operations==================================
 template<typename Real, size_t N>
