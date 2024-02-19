@@ -10,7 +10,7 @@
 #include "../Algebra/Vector.h"
 #include "../Constants.h"
 
-namespace xyh {
+namespace xyh::XMath {
 
 template<typename Real> class QuickHull2D {
 public:

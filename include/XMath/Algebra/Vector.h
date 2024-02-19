@@ -7,8 +7,7 @@
 
 #include "../Utils/Array1D.h"
 
-namespace xyh
-{
+namespace xyh::XMath{
 //! Real based vector in inner product space
 template <typename Real, size_t N> 
 class Vector : public Array1D<Real, N> {

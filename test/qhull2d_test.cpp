@@ -4,7 +4,7 @@
 
 #include <XMath/Geometry/QuickHull2D.h>
 
-using namespace xyh;
+using namespace xyh::XMath;
 
 int main() {
     // 使用随机设备作为种子

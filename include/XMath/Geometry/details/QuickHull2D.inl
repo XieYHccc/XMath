@@ -1,6 +1,6 @@
 #pragma once
 
-namespace xyh {
+namespace xyh::XMath {
 
 template<typename Real>
 void QuickHull2D<Real>::runqhull(size_t size, const Point* points, bool ccw, Real Epsilon) {

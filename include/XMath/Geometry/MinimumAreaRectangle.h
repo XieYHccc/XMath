@@ -6,7 +6,7 @@
 #include "QuickHull2D.h"
 #include "../Algebra/Matrix.h"
 
-namespace xyh{
+namespace xyh::XMath {
 
 // The class is a functor to support computing the minimum area box
 // of a set of points

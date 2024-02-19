@@ -7,7 +7,7 @@
 #include <array>
 #include <iostream>
 
-namespace xyh {
+namespace xyh::XMath {
 // A wrapper of std::array to support some operators
 template <typename T, size_t N> class Array1D {
 public :
@@ -15,13 +15,12 @@ public :
     static constexpr size_t size() { return N; }
 
 	Array1D() = default;
-
     Array1D(T s) { elements_.fill(s); }
+
     explicit Array1D(const std::initializer_list<T>& elements) {
         assert(elements.size() == N);
 		std::copy(elements.begin(), elements.end(), elements_.begin());
     }
-    
     // constructor for 2D array
     explicit Array1D(T x0, T x1) {
         static_assert(N == 2, "This constructor is only for 2D array" );

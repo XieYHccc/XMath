@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../QuickHull2D.h"
-namespace xyh {
+namespace xyh::XMath {
     
 template<typename Real>
 void MinimumAreaRectangle<Real>::run(size_t size, const Point* points, Real Eps) {

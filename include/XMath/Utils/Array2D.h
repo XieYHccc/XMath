@@ -7,8 +7,7 @@
 #include <array>
 #include <iostream>
 
-namespace xyh 
-{
+namespace xyh::XMath {
 
 template<typename T, size_t NumRows, size_t NumCols>
 class Array2D

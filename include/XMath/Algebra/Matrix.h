@@ -6,7 +6,7 @@
 #include "../Utils/Array2D.h"
 #include "Vector.h"
 
-namespace xyh {
+namespace xyh::XMath {
 // Real based Matrix
 template<typename Real, size_t NumRows, size_t NumCols>
 class Matrix : public Array2D<Real, NumRows, NumCols> {

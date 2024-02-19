@@ -8,9 +8,7 @@
 
 #include "Matrix.h"
 
-namespace xyh
-{
-//
+namespace xyh::XMath {
 // In this class we decompose Affine Transformation into rotation, reflection, shearing
 template<typename Real, size_t N>
 class AffineTransform

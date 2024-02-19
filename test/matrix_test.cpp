@@ -5,7 +5,7 @@
 #include "XMath/Algebra/Vector.h"
 
 using namespace std;
-using namespace xyh;
+using namespace xyh::XMath;
 
 int main() {
     auto start = std::chrono::high_resolution_clock::now();

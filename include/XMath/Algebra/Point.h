@@ -2,7 +2,7 @@
 
 #include "Vector.h"
 
-namespace xyh {
+namespace xyh::XMath {
 
 // Point defined in Affine Space
 template <typename Real, size_t N> 

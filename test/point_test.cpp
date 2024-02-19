@@ -3,7 +3,7 @@
 #include "XMath/Algebra/Point.h"
 
 using namespace std;
-using namespace xyh;
+using namespace xyh::XMath;
 
 int main()
 {  
